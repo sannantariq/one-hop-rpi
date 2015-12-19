@@ -5,7 +5,7 @@ from socket import *
 import time
 import thread
 
-SERVER_IP = '192.168.1.1'
+SERVER_IP = '192.168.1.2'
 ECHO_PORT = 50000 + 2
 CLIENT_RECV_PORT = 50000 + 4
 BUFSIZE = 1024
@@ -13,7 +13,8 @@ MAX_TRIES = 50
 ENTER_PRESSED = False
 PACKETS_RECEIVED = 0;
 MIN_THRESHOLD = 10
-FILE_NAME = "officesNov23/wifi/wifi-rtt-%.4d.dat"
+FOLDER = "Dec19outdoor"
+FILE_NAME = FODLER + "/wifi/wifi-rtt-%.4d.dat"
 
 
 def main():

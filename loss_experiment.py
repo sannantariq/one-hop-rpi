@@ -12,8 +12,9 @@ BUFSIZE = 1024
 ROUNDS = 3
 PACKETS_PER_ROUND = 1000
 ENTER_PRESSED = False
-SERVER_IP = '192.168.1.1'
-FILE_NAME = "outdoorsNov28/wifi/wifi-loss-%.4d.dat"
+SERVER_IP = '192.168.1.2'
+FOLDER = "Dec19outdoor"
+FILE_NAME = FOLDER + "/wifi/wifi-loss-%.4d.dat"
 TIMEOUT = 2.0
 
 def main():

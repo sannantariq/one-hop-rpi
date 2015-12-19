@@ -1,19 +1,19 @@
 #!/usr/bin/python
 
 
-# import bluetooth
+import bluetooth
 import time
 # import threading
 import multiprocessing
 import sys
 import timeit
 import signal
-import socket
 import os.path
 
-SERVER_ADDR = '192.168.1.2'
-SERVER_PORT = 50000 + 6
-FILE_SIZE = 20 * 1024 * 1024
+
+SERVER_ADDR = 
+SERVER_PORT = 1
+FILE_SIZE = 10 * 1024 * 1024
 BUFSIZE = 10 * 1024
 ENTER_PRESSED = False
 CONNECTIONS = 0;
@@ -25,9 +25,7 @@ MAX_TRIES = 50
 TIMEOUT = 10.0
 END_TIME = 0
 DISTANCE = 0
-FOLDER = "Dec19outdoor"
-FILE_NAME = FOLDER + "/wifi/wifi-tput-%.4d.dat"
-#SOCK = 0
+FILE_NAME = "Dec19outdoor/bt/bt-tput-%.4d.dat"
 # data_points = []
 
 def main():
@@ -41,15 +39,14 @@ def main():
 		usage()
 
 def usage():
-	print "Server: ./tput_alarmed_experiment.py %s <%s> [%s]" % ("-s", "distance", "port")
-	print "Client: ./tput_alarmed_experiment.py %s [%s] [%s]" % ("-c", "host address", "host port")
+	print "Server: ./bt_tput_alarmed_experiment.py %s <%s> [%s]" % ("-s", "distance", "port")
+	print "Client: ./bt_tput_alarmed_experiment.py %s [%s] [%s]" % ("-c", "host address", "host port")
 	# time.sleep(2)
 	sys.exit(0)
 
 def alarm_receiver(n, stack):
 	global DISTANCE
 	global FILE_NAME
-#	global SOCK
 	END_TIME = timeit.default_timer()
 	time_taken = END_TIME - START_TIME
 	
@@ -61,38 +58,32 @@ def alarm_receiver(n, stack):
 	
 	with open(FILE_NAME % DISTANCE, "a") as f:
 			f.write("%d\t%.6f\n" % (BYTES_RECEIVED, time_taken))
-#	SOCK.shutdown(socket.SHUT_RD)
-#	SOCK.close()
+	
 	sys.exit(0)
 
 def receieverThread(sock, distance):
 	global START_TIME
 	global BYTES_RECEIVED
 	global DISTANCE
-#	global SOCK
-#	SOCK = sock
 	DISTANCE = distance	
 	BYTES_RECEIVED = 0
 
-#	sock.setblocking(0)
+	# sock.setblocking(0)
 	signal.signal(signal.SIGALRM, alarm_receiver)
 	START_TIME = timeit.default_timer()
 	signal.alarm(TIME_THREASHOLD)
 	while True:
-		#try:
+		try:
 			d = sock.recv(FILE_SIZE)
-			if (d == 0):
-				print "connection closed early"
 			BYTES_RECEIVED += len(d)
-		#except socket.error:
-		#	pass
+		except bluetooth.BluetoothError:
+			pass
 	
 	
 
 
 def server():
 	global DISTANCE
-	global FILE_NAME
 
 	if (len(sys.argv) < 3):
 		return usage()
@@ -106,8 +97,8 @@ def server():
 
 	if (not os.path.isfile(FILE_NAME % DISTANCE)):
 		with open(FILE_NAME % DISTANCE, "a") as f:
-				f.write("%s\t%s\n" % ("Data (bytes)", "Time (ms)"))
-	server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+					f.write("%s\t%s\n" % ("Data (bytes)", "Time (s)"))
+	server_sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 	server_sock.bind(('', port))
 	server_sock.listen(1)
 	while True:
@@ -117,7 +108,7 @@ def server():
 		p.start()
 		p.join()
 		try:
-			client_sock.shutdown(socket.SHUT_RD)
+			client_sock.shutdown(0)
 			client_sock.close()
 		except:
 			pass
@@ -142,8 +133,8 @@ def client():
 
 	while CONNECTIONS < MIN_THRESHOLD and tries < MAX_TRIES:
 		print "Trying, attempt %d" % tries
-		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		sock.settimeout(TIMEOUT)
+		sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+#		sock.settimeout(TIMEOUT)
 		try:
 			sock.connect(addr)
 			print "Connected, Sending..."
