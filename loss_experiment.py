@@ -143,7 +143,7 @@ def client():
 		sock = socket(AF_INET, SOCK_DGRAM)
 		sock.bind(('', 0))
 		#sock.settimeout(TIMEOUT)
-		sock.setblocking(0)
+	#	sock.setblocking(0)
 		raw_input("Press Enter to run Client for round %d." % k)
 		print("Sending data!") 
 		sendExp(k, sock, addr, uid)

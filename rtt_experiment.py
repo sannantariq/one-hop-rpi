@@ -14,7 +14,7 @@ ENTER_PRESSED = False
 PACKETS_RECEIVED = 0;
 MIN_THRESHOLD = 10
 FOLDER = "Dec19outdoor"
-FILE_NAME = FODLER + "/wifi/wifi-rtt-%.4d.dat"
+FILE_NAME = FOLDER + "/wifi/wifi-rtt-%.4d.dat"
 
 
 def main():
