@@ -11,7 +11,7 @@ import signal
 import os.path
 
 
-SERVER_ADDR = 
+SERVER_ADDR = '00:15:83:0C:BF:EB' 
 SERVER_PORT = 1
 FILE_SIZE = 10 * 1024 * 1024
 BUFSIZE = 10 * 1024
@@ -25,7 +25,8 @@ MAX_TRIES = 50
 TIMEOUT = 10.0
 END_TIME = 0
 DISTANCE = 0
-FILE_NAME = "Dec19outdoor/bt/bt-tput-%.4d.dat"
+FOLDER = 'Dec20offices'
+FILE_NAME = FOLDER + "/bt/bt-tput-%.4d.dat"
 # data_points = []
 
 def main():

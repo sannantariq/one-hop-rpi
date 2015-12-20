@@ -4,7 +4,7 @@ import os
 import sys
 import time
 
-FOLDER = "Dec20qncc"
+FOLDER = "Dec20offices"
 FILE_NAME = FOLDER + "/wifi/wifi-rssi-%.4d.dat"
 # ADDR = '98:4F:EE:03:6E:18'
 RUNS = 5

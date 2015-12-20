@@ -9,8 +9,8 @@ import sys
 import struct
 import bluetooth._bluetooth as bluez
 
-FILE_NAME = "Dec19outdoor/bt/bt-rssi-%.4d.dat"
-ADDR = 
+FILE_NAME = "Dec20offices/bt/bt-rssi-%.4d.dat"
+ADDR = '00:15:83:0C:BF:EB' 
 RUNS = 5
 MIN_THRESH = 5
 SUCCESSFUL = 0
