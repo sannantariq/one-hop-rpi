@@ -13,7 +13,7 @@ MAX_TRIES = 50
 ENTER_PRESSED = False
 PACKETS_RECEIVED = 0;
 MIN_THRESHOLD = 10
-FOLDER = "Dec19outdoor"
+FOLDER = "Dec20qncc"
 FILE_NAME = FOLDER + "/wifi/wifi-rtt-%.4d.dat"
 
 
